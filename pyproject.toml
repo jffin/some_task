@@ -3,6 +3,10 @@ name = "test_task"
 version = "0.1.1"
 description = ""
 authors = ["Your Name <you@example.com>"]
+packages = [
+    { include = "text_api" },
+    { include = "text_api/**/*.py" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
