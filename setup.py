@@ -1,27 +1,27 @@
 from setuptools import setup, find_packages
 
-__version__ = "0.1"
+__version__ = '0.1'
 
 setup(
-    name="text_api",
+    name='text_api',
     version=__version__,
-    packages=find_packages(exclude=["tests"]),
+    packages=find_packages(exclude=['tests']),
     install_requires=[
-        "flask",
-        "flask-sqlalchemy",
-        "flask-restful",
-        "flask-migrate",
-        "flask-jwt-extended",
-        "flask-marshmallow",
-        "marshmallow-sqlalchemy",
-        "python-dotenv",
-        "passlib",
-        "apispec[yaml]",
-        "apispec-webframeworks",
+        'flask',
+        'flask-sqlalchemy',
+        'flask-restful',
+        'flask-migrate',
+        'flask-jwt-extended',
+        'flask-marshmallow',
+        'marshmallow-sqlalchemy',
+        'python-dotenv',
+        'passlib',
+        'apispec[yaml]',
+        'apispec-webframeworks',
     ],
     entry_points={
-        "console_scripts": [
-            "text_api = text_api.manage:cli"
+        'console_scripts': [
+            'text_api = text_api.manage:cli'
         ]
     },
 )

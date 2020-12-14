@@ -11,6 +11,12 @@ build:
 run:
 	docker-compose up -d
 
+down:
+	docker-compose down
+
+logs:
+	docker-compose logs -f
+
 db-migrate:
 	docker-compose exec web text_api db migrate
 

@@ -12,9 +12,9 @@ from tests.factories import UserFactory
 register(UserFactory)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def app():
-    load_dotenv(".testenv")
+    load_dotenv('.testenv')
     app = create_app(testing=True)
     return app
 

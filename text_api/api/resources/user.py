@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
+
 from text_api.api.schemas import UserSchema
 from text_api.models import User
 from text_api.extensions import db

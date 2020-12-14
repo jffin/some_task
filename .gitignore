@@ -74,6 +74,8 @@ db.sqlite3-journal
 # Flask stuff:
 instance/
 
+db/*
+
 # Scrapy stuff:
 .scrapy
 
@@ -120,6 +122,8 @@ ENV/
 env.bak/
 venv.bak/
 pythonenv*
+.flaskenv
+.testenv
 
 # Spyder project settings
 .spyderproject
@@ -300,3 +304,4 @@ yarn-error.log
 
 ### Poetry ###
 poetry.lock
+

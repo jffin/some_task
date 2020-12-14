@@ -6,11 +6,11 @@ from text_api.extensions import db, jwt, migrate, apispec
 
 def create_app(testing=False, cli=False):
     """Application factory, used to create application"""
-    app = Flask("text_api")
-    app.config.from_object("text_api.config")
+    app = Flask('text_api')
+    app.config.from_object('text_api.config')
 
     if testing is True:
-        app.config["TESTING"] = True
+        app.config['TESTING'] = True
 
     configure_extensions(app, cli)
     configure_apispec(app)
@@ -30,18 +30,18 @@ def configure_extensions(app, cli):
 
 def configure_apispec(app):
     """Configure APISpec for swagger support"""
-    apispec.init_app(app, security=[{"jwt": []}])
+    apispec.init_app(app, security=[{'jwt': []}])
     apispec.spec.components.security_scheme(
-        "jwt", {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}
+        'jwt', {'type': 'http', 'scheme': 'bearer', 'bearerFormat': 'JWT'}
     )
     apispec.spec.components.schema(
-        "PaginatedResult",
+        'PaginatedResult',
         {
-            "properties": {
-                "total": {"type": "integer"},
-                "pages": {"type": "integer"},
-                "next": {"type": "string"},
-                "prev": {"type": "string"},
+            'properties': {
+                'total': {'type': 'integer'},
+                'pages': {'type': 'integer'},
+                'next': {'type': 'string'},
+                'prev': {'type': 'string'},
             }
         },
     )
