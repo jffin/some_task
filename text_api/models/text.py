@@ -11,9 +11,9 @@ class Text(db.Model):
     model = 'texts'
 
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.Text)
+    text = db.Column(db.Text, unique=True)
 
-    slug = db.Column(db.String(255), unique=True, nullable=False)
+    slug = db.Column(db.String(20), unique=True, nullable=False)
 
     created = db.Column(db.DateTime, default=datetime.now, nullable=False)
     updated = db.Column(
@@ -25,7 +25,7 @@ class Text(db.Model):
             kwargs['slug'] = self.create_slug_from_text(kwargs.get('text', '')[:20])
 
     def __repr__(self):
-        return f'<Text {self.text[:20]}>'
+        return f'<Text {self.text}>'
 
     @staticmethod
     def create_slug_from_text(text):

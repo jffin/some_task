@@ -3,7 +3,8 @@ from text_api.extensions import ma, db
 
 
 class TextSchema(ma.SQLAlchemyAutoSchema):
-    slug = ma.Str(required=False)
+    id = ma.Int(dump_only=True)
+    slug = ma.Str(dump_only=True)
     created = ma.DateTime(dump_only=True)
     updated = ma.DateTime(dump_only=True)
 
@@ -13,7 +14,6 @@ class TextSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         datetimeformat = '%Y-%m-%d %H:%m:%S'
         fields = (
-            'id',
             'text',
             'slug',
             'created',
