@@ -13,12 +13,18 @@ class TextClient {
     return this.http.get(url, config)
   }
 
-  post(url, data) {
-    return this.http.post(url, data);
+  async post(url, data) {
+    let response;
+    try {
+      response = await this.http.post(url, data);
+    } catch (err) {
+      response = (err.response.data) ? err.response : err;
+    }
+    return response;
   }
 
-  async addNewText({text}) {
-    const response = this.post('texts/', text);
+  async addNewText(text) {
+    const response = await this.post('texts/', {content: text});
     return response.data;
   }
 }

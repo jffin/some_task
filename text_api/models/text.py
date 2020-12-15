@@ -22,10 +22,11 @@ class Text(db.Model):
 
     def __init__(self, *args, **kwargs):
         if 'slug' not in kwargs:
-            kwargs['slug'] = self.create_slug_from_text(kwargs.get('text', '')[:20])
+            kwargs['slug'] = self.create_slug_from_text(kwargs.get('content', '')[:20])
+        super().__init__(*args, **kwargs)
 
     def __repr__(self):
-        return f'<Text {self.text}>'
+        return f'<Text {self.content[:20]}>'
 
     @staticmethod
     def create_slug_from_text(text):

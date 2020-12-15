@@ -19,6 +19,31 @@
         Save Text
       </v-btn>
     </v-form>
+    <v-row justify="center">
+      <v-dialog
+          v-model="dialog"
+          persistent
+          max-width="290"
+      >
+        <v-card>
+          <v-card-text>
+            <div class="text-center pt-5">
+              {{ result }}
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                class="purple darken-4 mx-3 mt-3 float-right"
+                text
+                @click="dialog = false"
+            >
+              OK
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </div>
 </template>
 
@@ -30,22 +55,25 @@ export default {
   data() {
     return {
       content: '',
+      result: '',
+      dialog: false,
     }
   },
   methods: {
     async addNewText() {
-      console.log(this.content);
       if (this.content) {
-        return await textClient.addNewText(this.content);
+        const data = await this.sendRequest();
+        this.result = data.msg;
+        this.dialog = true;
+        // store.addTextAction(data.text);
+      } else {
+        this.result = 'Enter A Text Please!';
+        this.dialog = true;
       }
-      else {
-        alert('Enter A Text Please!')
-      }
+    },
+    async sendRequest() {
+      return await textClient.addNewText(this.content);
     }
-  }
+  },
 }
 </script>
-
-<style scoped>
-
-</style>
