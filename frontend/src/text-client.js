@@ -18,7 +18,7 @@ class TextClient {
   }
 
   async addNewText({text}) {
-    const response = this.post('users/', text);
+    const response = this.post('texts/', text);
     return response.data;
   }
 }

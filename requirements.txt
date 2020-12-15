@@ -13,3 +13,6 @@ inflection
 apispec[yaml]
 apispec-webframeworks
 tox
+
+# needs to be removed
+flask_cors
