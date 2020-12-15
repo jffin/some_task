@@ -14,7 +14,7 @@ class TextSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         datetimeformat = '%Y-%m-%d %H:%m:%S'
         fields = (
-            'text',
+            'content',
             'slug',
             'created',
             'updated',

@@ -11,7 +11,7 @@ class Text(db.Model):
     model = 'texts'
 
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.Text, unique=True)
+    content = db.Column(db.Text, unique=True)
 
     slug = db.Column(db.String(20), unique=True, nullable=False)
 
