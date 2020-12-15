@@ -300,6 +300,8 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+.env
+
 # End of https://www.toptal.com/developers/gitignore/api/pycharm+all,osx,macos,linux,flask,vuejs
 
 ### Poetry ###
