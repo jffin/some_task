@@ -1,0 +1,27 @@
+version: '3'
+
+volumes:
+  production_sqli: {}
+
+services:
+  flask_web:
+    build:
+      context: .
+      dockerfile: ./compose/production/flask/Dockerfile
+    image: text_api
+    env_file:
+      - ./.flaskenv
+    environment:
+      - DATABASE_URI=sqlite:////code/db/text_api.db
+    volumes:
+      - production_sqli:/code/db/
+    command: uwsgi --http 127.0.0.1:5000 --module text_api.wsgi:app
+
+#  frontend:
+#    build:
+#      context: .
+#      dockerfile: ./compose/production/node/Dockerfile
+#    image: text_frontend
+#    env_file:
+#      - ./.vueenv
+#    command:

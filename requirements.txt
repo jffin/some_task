@@ -17,6 +17,3 @@ tox
 # sentences
 nltk
 sentence-transformers
-
-# needs to be removed
-flask_cors

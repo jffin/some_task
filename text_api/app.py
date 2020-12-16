@@ -9,11 +9,6 @@ def create_app(testing=False, cli=False):
     app = Flask('text_api')
     app.config.from_object('text_api.config')
 
-    # TODO remove cors in production
-    from flask_cors import CORS
-
-    CORS(app)
-
     if testing is True:
         app.config['TESTING'] = True
 
