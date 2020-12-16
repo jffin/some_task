@@ -1,24 +1,37 @@
 <template>
   <div>
-    <h1 class="text-center header deep-purple--text darken-2">Enter Your Text Please</h1>
-    <v-form class="px-3">
-      <v-textarea
-          class="text-adding purple darken-4 rounded-lg"
-          label="Text"
-          counter
-          clearable-icon
-          auto-grow
-          hint="put here your long amazing text"
-          v-model="content"
+    <div
+        v-if="isLoading"
+        class="d-flex justify-center"
+    >
+      <v-progress-circular
+          :size="70"
+          :width="7"
+          color="purple"
+          indeterminate
       />
-      <v-btn
-          text
-          class="purple darken-4 mx-3 mt-3 float-right"
-          @click="addNewText"
-      >
-        Save Text
-      </v-btn>
-    </v-form>
+    </div>
+    <div v-else>
+      <h1 class="text-center header deep-purple--text darken-2">Enter Your Text Please</h1>
+      <v-form class="px-3">
+        <v-textarea
+            class="text-adding purple darken-4 rounded-lg"
+            label="Text"
+            counter
+            clearable-icon
+            auto-grow
+            hint="put here your long amazing text"
+            v-model="content"
+        />
+        <v-btn
+            text
+            class="purple darken-4 mx-3 mt-3 float-right"
+            @click="addNewText"
+        >
+          Save Text
+        </v-btn>
+      </v-form>
+    </div>
     <v-row justify="center">
       <v-dialog
           v-model="dialog"
@@ -48,8 +61,6 @@
 </template>
 
 <script>
-import textClient from '../text-client';
-
 export default {
   name: 'TextInput',
   data() {
@@ -57,23 +68,32 @@ export default {
       content: '',
       result: '',
       dialog: false,
+      isLoading: false,
     }
   },
   methods: {
     async addNewText() {
       if (this.content) {
-        const data = await this.sendRequest();
-        this.result = data.msg;
-        this.dialog = true;
-        // store.addTextAction(data.text);
+        this.toggleLoading();
+        this.scrollToTop();
+        const result = await this.$store.dispatch('sendText', this.content);
+        this.toggleLoading();
+        this.handleResult(result);
       } else {
-        this.result = 'Enter A Text Please!';
-        this.dialog = true;
+        this.handleResult('Enter A Text Please!');
       }
     },
-    async sendRequest() {
-      return await textClient.addNewText(this.content);
-    }
+    handleResult(resultMessage) {
+      this.result = resultMessage;
+      this.dialog = true;
+      this.content = '';
+    },
+    toggleLoading() {
+      this.isLoading = !this.isLoading;
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
   },
 }
 </script>

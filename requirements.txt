@@ -14,5 +14,9 @@ apispec[yaml]
 apispec-webframeworks
 tox
 
+# sentences
+nltk
+sentence-transformers
+
 # needs to be removed
 flask_cors

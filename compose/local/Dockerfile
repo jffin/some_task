@@ -11,11 +11,13 @@ FROM python:3.8
 RUN mkdir /code
 WORKDIR /code
 
-COPY requirements.txt setup.py tox.ini ./
+COPY ../../requirements.txt setup.py tox.ini ./
 RUN pip install -r requirements.txt
 RUN pip install -e .
 
-COPY text_api text_api/
-COPY migrations migrations/
+RUN python -c "import nltk; nltk.download('punkt')"
+
+COPY ../../text_api text_api/
+COPY ../../migrations migrations/
 
 EXPOSE 5000

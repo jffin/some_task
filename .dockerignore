@@ -1,4 +1,4 @@
 .flaskenv
-Dockerfile
+compose/local/Dockerfile
 Makefile
 docker-compose.yml

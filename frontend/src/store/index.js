@@ -1,34 +1,60 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import textClient from '../text-client'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    text: [],
     texts: [],
+    similarSentences: [],
   },
 
   getters: {
     texts: state => {
-      return state.texts
+      return state.texts;
     },
+    text: state => {
+      return state.text;
+    }
   },
 
   mutations: {
-    addTextAction(newText) {
-      if (this.debug) console.log('addText triggered with', newText);
-      this.state.texts.push(newText);
+    addText(state, newText) {
+      state.texts.unshift(newText);
     },
-    addTextsAction(texts) {
-      if (this.debug) console.log('addTexts triggered with', texts);
-      this.state.texts = texts;
+    addTexts(state, texts) {
+      state.texts = texts;
     },
-    clearTextsAction() {
-      if (this.debug) console.log('clearTexts triggered');
-      this.state.texts = [];
+    clearTextsAction(state) {
+      state.texts = [];
+    },
+    addTextSentences(state, textSentences) {
+      state.text = textSentences;
+    }
+  },
+
+  actions: {
+    async sendText({commit}, newText) {
+      const response = await textClient.addNewText(newText);
+      if (response.text) {
+        commit('addText', response.text);
+      }
+      return response.msg;
+    },
+    async getTexts({commit, state}) {
+      if (!state.texts.length) {
+        const response = await textClient.getTexts();
+        commit('addTexts', response.results.reverse());
+      }
+    },
+    async getText({commit}, slug) {
+      const response = await textClient.getText(slug);
+      commit('addTextSentences', response.text);
     },
   },
 
-  actions: {},
   modules: {},
 });

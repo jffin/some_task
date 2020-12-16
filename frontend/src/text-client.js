@@ -9,8 +9,8 @@ class TextClient {
     })
   }
 
-  get(url, config) {
-    return this.http.get(url, config)
+  get(url) {
+    return this.http.get(url)
   }
 
   async post(url, data) {
@@ -25,6 +25,21 @@ class TextClient {
 
   async addNewText(text) {
     const response = await this.post('texts/', {content: text});
+    return response.data;
+  }
+
+  async getTexts() {
+    const response = await this.get('texts/');
+    return response.data;
+  }
+
+  async getText(slug) {
+    const response = await this.get(`text/${slug}/`);
+    return response.data;
+  }
+
+  async getSimilarSentences(sentence, slug) {
+    const response = await this.post(`text/${slug}/`, {sentence});
     return response.data;
   }
 }

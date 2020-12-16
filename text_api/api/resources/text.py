@@ -1,11 +1,83 @@
+import nltk
+
 from flask import request
 from sqlalchemy import exc
 from flask_restful import Resource
 
+from text_api.commons.sentences_finder import SentenceEmbedding
 from text_api.models import Text
 from text_api.extensions import db
 from text_api.api.schemas import TextSchema
 from text_api.commons.pagination import paginate
+
+
+RESULT = [
+    {
+        "sentence": "new test",
+        "distance": 0.16993166870256526,
+        "slug": "new-test"
+    },
+    {
+        "sentence": "Continue your learning with related content selected by the Team or move between pages by using the navigation links below.",
+        "distance": 0.16205188943416116,
+        "slug": "continue-your-learni"
+    },
+    {
+        "sentence": "sdfndsjfndsjfsd",
+        "distance": 0.15816308106857968,
+        "slug": "sdfndsjfndsjfsd"
+    },
+    {
+        "sentence": "gsdfsdgsdgsd",
+        "distance": 0.10788399986970942,
+        "slug": "gsdfsdgsdgsd"
+    },
+    {
+        "sentence": "testtexttesttexttesttexttesttexttesttexttesttexttesttexttesttexttesttexttesttexttesttext",
+        "distance": 0.1063344959452629,
+        "slug": "testtexttesttexttest"
+    },
+    {
+        "sentence": "jyujtyfhdgdrgdfgdf",
+        "distance": 0.09909857467801386,
+        "slug": "jyujtyfhdgdrgdfgdf"
+    },
+    {
+        "sentence": "gsfsfsdfsdfsdgsdfsd",
+        "distance": 0.09721390134673458,
+        "slug": "gsfsfsdfsdfsdgsdfsd"
+    },
+    {
+        "sentence": "gsdfdsfnsfnsd",
+        "distance": 0.09447300785168167,
+        "slug": "gsdfdsfnsfnsd"
+    },
+    {
+        "sentence": "gsfsfsdfsdfsdgsdfsdf",
+        "distance": 0.09055933770398161,
+        "slug": "gsfsfsdfsdfsdgsdfsdf"
+    },
+    {
+        "sentence": "gsfsdgsdfdsfsdf",
+        "distance": 0.09052721991185886,
+        "slug": "gsfsdgsdfdsfsdf"
+    },
+    {
+        "sentence": "gsdfsdfdsgdsfsdf",
+        "distance": 0.08231491021381165,
+        "slug": "gsdfsdfdsgdsfsdf"
+    },
+    {
+        "sentence": "test",
+        "distance": 0.07399995248936064,
+        "slug": "test"
+    },
+    {
+        "sentence": "gddsfdsgf",
+        "distance": 0.06966567491036335,
+        "slug": "gddsfdsgf"
+    }
+]
 
 
 class TextResource(Resource):
@@ -80,9 +152,15 @@ class TextResource(Resource):
 
     @staticmethod
     def get(text_slug):
-        schema = TextSchema()
         text = Text.get_by_slug_or_404(text_slug)
-        return {"text": schema.dump(text)}
+        sentences = nltk.tokenize.sent_tokenize(text.content)
+        return {"text": sentences}
+
+    @staticmethod
+    def post(text_slug):
+        data = request.json
+        # results = SentenceEmbedding.run(data['sentence'], text_slug)
+        return RESULT
 
 
 class TextList(Resource):

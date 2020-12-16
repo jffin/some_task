@@ -14,7 +14,7 @@ api = Api(blueprint)
 api.add_resource(UserResource, '/users/<int:user_id>', endpoint='user_by_id')
 api.add_resource(UserList, '/users', endpoint='users')
 
-api.add_resource(TextResource, '/texts/<string:text_slug>/', endpoint='text_by_slug')
+api.add_resource(TextResource, '/text/<string:text_slug>/', endpoint='text_by_slug')
 api.add_resource(TextList, '/texts/', endpoint='texts')
 
 
