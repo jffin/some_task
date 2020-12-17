@@ -22,6 +22,9 @@ run:
 prod-run:
 	docker-compose -f production.yml up -d
 
+prod-down:
+	docker-compose -f production.yml down
+
 down:
 	docker-compose down
 
