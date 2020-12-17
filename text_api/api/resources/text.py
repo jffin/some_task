@@ -190,4 +190,5 @@ class TaskResult(Resource):
 
     @staticmethod
     def post():
+        # for communication results with frontend
         pass

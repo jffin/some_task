@@ -16,12 +16,13 @@ class SentenceEmbedding:
         # slug of sentence text
         self.slug: str = slug
         self.texts: List[Text] = self.get_texts()
-        #
+        # Sentence Embedding used with SentenceBERT model
         self.model: SentenceTransformer = SentenceTransformer('bert-base-nli-mean-tokens')
         self.results: List[Dict[str, str]] = []
 
     @classmethod
     def run(cls, sentence: str, slug: str) -> List[Dict[str, str]]:
+        # starting point
         obj = cls(sentence, slug)
         obj.search()
         obj.sort_results()
@@ -29,13 +30,16 @@ class SentenceEmbedding:
         return obj.results
 
     def get_texts(self) -> List[Text]:
+        # find all texts except current
         return Text.query.filter(Text.slug != self.slug).all()
 
     @staticmethod
     def convert_text_sentences(text: str) -> List[str]:
+        # convert text to sentences
         return nltk.tokenize.sent_tokenize(text)
 
     def search(self) -> None:
+        # query is
         query = self.model.encode(self.sentence)
         for text in self.texts:
             self.calculate_text_result(text, query)

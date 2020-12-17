@@ -31,5 +31,6 @@ RUN chown -R ${USER_NAME}:${USER_NAME} /code
 
 USER ${USER_NAME}
 
+RUN mkdir -p /home/user/nltk_data
 # it has to be run from user to save it home directory
 RUN python -c "import nltk; nltk.download('punkt')"
