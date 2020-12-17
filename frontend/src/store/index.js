@@ -43,7 +43,7 @@ export default new Vuex.Store({
       if (response.text) {
         commit('addText', response.text);
       }
-      return response.msg;
+      return (response.msg) ? response.msg : response.message;
     },
     async getTexts({commit, state}) {
       if (!state.texts.length) {
