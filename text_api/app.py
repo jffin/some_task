@@ -1,6 +1,6 @@
 from flask import Flask
 
-from text_api import auth, api
+from text_api import api
 from text_api.extensions import db, jwt, migrate, apispec, celery
 
 
@@ -50,7 +50,6 @@ def configure_apispec(app):
 
 def register_blueprints(app):
     """register all blueprints for application"""
-    app.register_blueprint(auth.views.blueprint)
     app.register_blueprint(api.views.blueprint)
 
 

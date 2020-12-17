@@ -84,16 +84,20 @@ class TextResource(Resource):
 
     @staticmethod
     def get(text_slug):
+        # try to find text in database or throw 404
+        # then divide text into sentences
         text = Text.get_by_slug_or_404(text_slug)
         sentences = nltk.tokenize.sent_tokenize(text.content)
         return {'text': sentences}
 
     @staticmethod
     def post(text_slug):
+        # we receive sentence and slug to eliminate current text from search
+        # then call celery task to find similar sentences
+        # TODO create websocket to communicate with browser with updates
         data = request.json
         result = find_sentences_task.delay(data['sentence'], text_slug)
         return result.wait(timeout=None, interval=0.5)
-        # return SentenceEmbedding.run(data['sentence'], text_slug)
 
 
 class TextList(Resource):
@@ -140,6 +144,7 @@ class TextList(Resource):
 
     @staticmethod
     def get():
+        # get all texts
         schema = TextSchema(many=True)
         query = Text.query
 
@@ -147,6 +152,7 @@ class TextList(Resource):
 
     @staticmethod
     def post():
+        # add new text to database
         schema = TextSchema()
         text = schema.load(request.json)
 
