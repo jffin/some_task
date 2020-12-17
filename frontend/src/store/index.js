@@ -51,6 +51,7 @@ export default new Vuex.Store({
       }
     },
     async getText({commit}, slug) {
+      commit('addTextSentences', []);
       const response = await textClient.getText(slug);
       commit('addTextSentences', response.text);
     },
