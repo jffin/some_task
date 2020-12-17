@@ -5,5 +5,5 @@ default_context:
     admin_user_username: "zxzzoaydnnzs"
     admin_user_email: "admin@mail.com"
     admin_user_password: "ed315517-bd1e-4b55-bc4a-0e1d7e72c558"
-    use_celery: "no"
+    use_celery: "yes"
     wsgi_server: "none"

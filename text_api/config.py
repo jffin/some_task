@@ -13,3 +13,9 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 JWT_BLACKLIST_ENABLED = True
 JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
+
+CELERY = {
+    'broker_url': os.getenv('CELERY_BROKER_URL'),
+    'result_backend': os.getenv('CELERY_RESULT_BACKEND_URL'),
+}
+CELERY_DATABASE_URI = os.getenv('CELERY_DATABASE_URI')

@@ -13,6 +13,7 @@ inflection
 apispec[yaml]
 apispec-webframeworks
 tox
+celery[redis]
 
 uwsgi
 

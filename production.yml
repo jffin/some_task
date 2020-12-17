@@ -1,7 +1,7 @@
 version: '3'
 
 volumes:
-  production_sqli: {}
+  production_sqli: { }
 
 services:
   flask_web:
@@ -26,3 +26,20 @@ services:
       - ./.vueenv
     ports:
       - "8080:80"
+
+  redis:
+    image: redis
+
+  celery:
+    image: text_api
+    command: "celery -A text_api.celery_app:app worker"
+    env_file:
+      - ./.flaskenv
+    volumes:
+      - production_sqli:/code/db/
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND_URL=redis://redis:6379/0
+      - DATABASE_URI=sqlite:////code/db/text_api.db
