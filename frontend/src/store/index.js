@@ -39,7 +39,6 @@ export default new Vuex.Store({
   actions: {
     async sendText({commit}, newText) {
       const response = await textClient.addNewText(newText);
-      console.log(response);
       if (response.text) {
         commit('addText', response.text);
       }

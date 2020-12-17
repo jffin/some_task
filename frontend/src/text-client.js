@@ -17,9 +17,7 @@ class TextClient {
     let response;
     try {
       response = await this.http.post(url, data);
-      console.log(response);
     } catch (err) {
-      console.log(response);
       response = (err.response.data) ? err.response : err;
     }
     return response;
