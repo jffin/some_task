@@ -4,7 +4,6 @@ from flask import request
 from sqlalchemy import exc
 from flask_restful import Resource
 
-from text_api.commons.sentences_finder import SentenceEmbedding
 from text_api.models import Text
 from text_api.extensions import db
 from text_api.api.schemas import TextSchema
@@ -144,14 +143,14 @@ class TextList(Resource):
 
     @staticmethod
     def get():
-        # get all texts
+        """get all texts"""
         schema = TextSchema(many=True)
         query = Text.query
 
         return paginate(query, schema)
 
     def post(self):
-        # add new text to database
+        """add new text to database"""
         schema = TextSchema()
         text = schema.load(request.json)
 
@@ -197,5 +196,5 @@ class TaskResult(Resource):
 
     @staticmethod
     def post():
-        # for communication results with frontend
+        """for communication results with frontend"""
         pass
