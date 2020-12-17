@@ -5,7 +5,7 @@ init:  build run
 	docker-compose exec web text_api init
 	@echo "Init done, containers running"
 
-prod-init:  build prod-run
+prod-init:  prod-build prod-run
 	docker-compose -f production.yml exec flask_web text_api db upgrade
 	docker-compose -f production.yml exec flask_web text_api init
 	@echo "Init done, containers running, now you can navigate to http://127.0.0.1:8080 in your browser"
