@@ -1,4 +1,6 @@
 .flaskenv
-compose/local/Dockerfile
+compose/
+!compose/production/node/default.conf
 Makefile
 docker-compose.yml
+production.yml

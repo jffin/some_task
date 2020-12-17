@@ -34,7 +34,3 @@ RUN useradd ${USER_NAME} -s /sbin/nologin
 RUN chown -R ${USER_NAME}:${USER_NAME} /code
 
 USER ${USER_NAME}
-
-EXPOSE 5000
-
-
