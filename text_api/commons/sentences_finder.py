@@ -39,8 +39,9 @@ class SentenceEmbedding:
         return nltk.tokenize.sent_tokenize(text)
 
     def search(self) -> None:
-        # query is
+        # define search query and embed into vector
         query = self.model.encode(self.sentence)
+        # iterate through texts
         for text in self.texts:
             self.calculate_text_result(text, query)
 
