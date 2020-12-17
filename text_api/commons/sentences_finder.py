@@ -46,11 +46,17 @@ class SentenceEmbedding:
             self.calculate_text_result(text, query)
 
     def calculate_text_result(self, text: Text, query: List):
+        # create vector from sentence we try to compare with needed
         corpus = self.convert_text_sentences(text.content)
         corpus_embeddings = self.model.encode(corpus)
+        # compute the cosine similarity with scipy
         distances = scipy.spatial.distance.cdist([query], corpus_embeddings, 'cosine')[0]
+
+        # merge distances with ids and sort
         results = zip(range(len(distances)), distances)
         results = sorted(results, key=lambda x: x[1])
+
+        # create result's dictionary with top distance
         for idx, distance in results[:self.top_amount_results]:
             self.results.append({
                 'sentence': corpus[idx].strip(),
@@ -59,4 +65,5 @@ class SentenceEmbedding:
             })
 
     def sort_results(self) -> None:
+        # sort reverse results
         self.results = sorted(self.results, key=lambda r: r['distance'], reverse=True)
