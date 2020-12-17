@@ -155,7 +155,7 @@ class TextList(Resource):
         text = schema.load(request.json)
 
         if not self.is_english(text.content):
-            return {'msg', 'Please provide text in english language'}, 403
+            return {'msg': 'Please provide text in english language'}, 403
 
         db.session.add(text)
 
