@@ -11,9 +11,12 @@ class SentenceEmbedding:
     top_amount_results: int = 20
 
     def __init__(self, sentence: str, slug: str):
+        # sentence to compare with
         self.sentence: str = sentence
+        # slug of sentence text
         self.slug: str = slug
         self.texts: List[Text] = self.get_texts()
+        #
         self.model: SentenceTransformer = SentenceTransformer('bert-base-nli-mean-tokens')
         self.results: List[Dict[str, str]] = []
 
