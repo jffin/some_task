@@ -150,11 +150,13 @@ class TextList(Resource):
 
         return paginate(query, schema)
 
-    @staticmethod
-    def post():
+    def post(self):
         # add new text to database
         schema = TextSchema()
         text = schema.load(request.json)
+
+        if not self.is_english(text.content):
+            return {'msg', 'Please provide text in english language'}, 403
 
         db.session.add(text)
 
@@ -164,6 +166,11 @@ class TextList(Resource):
             return {'msg': 'duplicate entries'}, 403
 
         return {'msg': 'text created', 'text': schema.dump(text)}, 201
+
+    @staticmethod
+    def is_english(s):
+        """checks if text is english"""
+        return s.isascii()
 
 
 class TaskResult(Resource):
