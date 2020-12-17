@@ -29,6 +29,7 @@ RUN useradd ${USER_NAME} -s /sbin/nologin
 
 RUN chown -R ${USER_NAME}:${USER_NAME} /code
 
+# it has to be run from user to save it home directory
 RUN python -c "import nltk; nltk.download('punkt')"
 
 USER ${USER_NAME}
