@@ -1,16 +1,6 @@
 <template>
   <v-container>
-    <div
-        v-if="isLoading"
-        class="d-flex justify-center"
-    >
-      <v-progress-circular
-          :size="70"
-          :width="7"
-          color="purple"
-          indeterminate
-      />
-    </div>
+    <loader v-if="isLoading" />
     <v-list v-else>
       <template v-for="(item, index) in textSentences">
         <v-list-item :key="index" @click="getSimilar(item)">
@@ -25,12 +15,17 @@
 </template>
 
 <script>
+import Loader from './Loader';
 import SentencesDialog from './SentencesDialog';
+
 import textClient from '../text-client'
 
 export default {
   name: 'TextContent',
-  components: {SentencesDialog},
+  components: {
+    SentencesDialog,
+    Loader,
+  },
   props: {
     textSentences: {
       type: Array,

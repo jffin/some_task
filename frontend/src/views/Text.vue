@@ -6,6 +6,7 @@
 
 <script>
 import TextContent from '../components/TextContent';
+
 import { mapState } from 'vuex';
 
 export default {

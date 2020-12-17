@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/Dockerfile
-    command: text_api run -h 0.0.0.0
+    command: uwsgi --http 0.0.0.0:5000 --module text_api.wsgi:app
     env_file:
       - ./.flaskenv
     environment:

@@ -10,10 +10,10 @@ class TextSchema(ma.SQLAlchemyAutoSchema):
     created = ma.DateTime(dump_only=True)
     updated = ma.DateTime(dump_only=True)
 
-    content = fields.Method('get_content')
+    text_content = fields.Method('get_text_content', dump_only=True)
 
     @staticmethod
-    def get_content(text):
+    def get_text_content(text):
         return f'{text.content[:121]}...'
 
     class Meta:
@@ -21,9 +21,3 @@ class TextSchema(ma.SQLAlchemyAutoSchema):
         sqla_session = db.session
         load_instance = True
         datetimeformat = '%Y-%m-%d %H:%m:%S'
-        fields = (
-            'content',
-            'slug',
-            'created',
-            'updated',
-        )

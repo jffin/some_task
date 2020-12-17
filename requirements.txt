@@ -14,6 +14,8 @@ apispec[yaml]
 apispec-webframeworks
 tox
 
+uwsgi
+
 # sentences
 nltk
 sentence-transformers

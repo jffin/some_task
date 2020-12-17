@@ -18,8 +18,6 @@ COPY ./requirements.txt setup.py ./
 RUN python -m pip install -r requirements.txt
 RUN python -m pip install -e .
 
-RUN python -m pip install uwsgi
-
 RUN python -c "import nltk; nltk.download('punkt')"
 
 COPY ./text_api text_api/

@@ -1,16 +1,6 @@
 <template>
   <div>
-    <div
-        v-if="isLoading"
-        class="d-flex justify-center"
-    >
-      <v-progress-circular
-          :size="70"
-          :width="7"
-          color="purple"
-          indeterminate
-      />
-    </div>
+    <loader v-if="isLoading" />
     <div v-else>
       <h1 class="text-center header deep-purple--text darken-2">Enter Your Text Please</h1>
       <v-form class="px-3">
@@ -61,8 +51,11 @@
 </template>
 
 <script>
+import Loader from './Loader';
+
 export default {
   name: 'TextInput',
+  components: {Loader},
   data() {
     return {
       content: '',

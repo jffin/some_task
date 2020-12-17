@@ -18,7 +18,7 @@ export default new Vuex.Store({
     },
     text: state => {
       return state.text;
-    }
+    },
   },
 
   mutations: {
@@ -33,7 +33,7 @@ export default new Vuex.Store({
     },
     addTextSentences(state, textSentences) {
       state.text = textSentences;
-    }
+    },
   },
 
   actions: {
