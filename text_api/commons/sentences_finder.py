@@ -15,7 +15,7 @@ class SentenceEmbedding:
         self.sentence: str = sentence
         # slug of sentence text
         self.slug: str = slug
-        self.texts: List[Text] = self.get_texts()
+        self.texts: List[Text] = self._get_texts()
         # Sentence Embedding used with SentenceBERT model
         self.model: SentenceTransformer = SentenceTransformer('bert-base-nli-mean-tokens')
         self.results: List[Dict[str, str]] = []
@@ -29,12 +29,12 @@ class SentenceEmbedding:
 
         return obj.results
 
-    def get_texts(self) -> List[Text]:
+    def _get_texts(self) -> List[Text]:
         # find all texts except current
         return Text.query.filter(Text.slug != self.slug).all()
 
     @staticmethod
-    def convert_text_sentences(text: str) -> List[str]:
+    def _convert_text_sentences(text: str) -> List[str]:
         # convert text to sentences
         return nltk.tokenize.sent_tokenize(text)
 
@@ -43,11 +43,11 @@ class SentenceEmbedding:
         query = self.model.encode(self.sentence)
         # iterate through texts
         for text in self.texts:
-            self.calculate_text_result(text, query)
+            self._calculate_text_result(text, query)
 
-    def calculate_text_result(self, text: Text, query: List):
+    def _calculate_text_result(self, text: Text, query: List):
         # create vector from sentence we try to compare with needed
-        corpus = self.convert_text_sentences(text.content)
+        corpus = self._convert_text_sentences(text.content)
         corpus_embeddings = self.model.encode(corpus)
         # compute the cosine similarity with scipy
         distances = scipy.spatial.distance.cdist([query], corpus_embeddings, 'cosine')[0]
