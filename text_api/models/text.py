@@ -30,11 +30,13 @@ class Text(db.Model):
 
     @staticmethod
     def create_slug_from_text(text):
+        # TODO insure slug is unique
         new_slug = parameterize(text)
         return new_slug
 
     @staticmethod
     def get_by_slug_or_404(text_slug):
+        # finds text by slug or throw 404
         text = Text.query.filter_by(slug=text_slug).first()
         if text is None:
             abort(404, description='text not found')
