@@ -18,8 +18,6 @@ COPY ./requirements.txt setup.py ./
 RUN python -m pip install -r requirements.txt
 RUN python -m pip install -e .
 
-RUN python -c "import nltk; nltk.download('punkt')"
-
 COPY ./text_api text_api/
 COPY ./migrations migrations/
 
@@ -30,5 +28,7 @@ RUN apt purge -y gcc g++
 RUN useradd ${USER_NAME} -s /sbin/nologin
 
 RUN chown -R ${USER_NAME}:${USER_NAME} /code
+
+RUN python -c "import nltk; nltk.download('punkt')"
 
 USER ${USER_NAME}
