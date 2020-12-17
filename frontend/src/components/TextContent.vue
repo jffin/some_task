@@ -47,7 +47,9 @@ export default {
     async getSimilar(sentence) {
       this.toggleLoading();
       this.similarSentences = await textClient.getSimilarSentences(sentence, this.slug);
-      this.dialog = true;
+      if (this.similarSentences instanceof Array && this.similarSentences.length > 0) {
+        this.dialog = true;
+      }
       this.toggleLoading();
     },
     toggleLoading() {
