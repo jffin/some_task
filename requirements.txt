@@ -15,7 +15,7 @@ apispec-webframeworks
 tox
 celery[redis]
 
-uwsgi
+gunicorn
 
 # sentences
 nltk

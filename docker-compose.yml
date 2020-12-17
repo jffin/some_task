@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/Dockerfile
-    command: text_api run -h 0.0.0.0  # uwsgi --http 0.0.0.0:5000 --module text_api.wsgi:app
+    command: gunicorn -b 0.0.0.0:5000 text_api.wsgi:app --timeout=1200 --log-level=debug  # text_api run -h 0.0.0.0  # uwsgi --ini text_api.ini --http 0.0.0.0:5000 --module text_api.wsgi:app
     env_file:
       - ./.flaskenv
     environment:

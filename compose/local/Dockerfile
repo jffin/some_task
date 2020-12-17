@@ -21,5 +21,6 @@ RUN python -c "import nltk; nltk.download('punkt')"
 
 COPY ./text_api text_api/
 COPY ./migrations migrations/
+COPY ./text_api.ini text_api.ini
 
 EXPOSE 5000
